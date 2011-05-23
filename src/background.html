@@ -9,4 +9,7 @@ chrome.extension.onRequest.addListener(
        chrome.browserAction.setBadgeText({text: request.time, tabId: sender.tab.id});
        sendResponse({});
 });
+
+// cache eviction
+chrome.tabs.onRemoved.addListener(function(tabId) { delete cache[tabId] });
 </script>
