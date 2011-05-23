@@ -14,7 +14,7 @@
 <script>
      chrome.tabs.getSelected(null, function (tab) {
          console.log(tab.id);
-         var t = chrome.extension.getBackgroundPage().cache[tab.id];       
+         var t = chrome.extension.getBackgroundPage().cache[tab.id];
          document.getElementById('redirect').innerHTML = t.redirectEnd - t.redirectStart;
          document.getElementById('redirect_total').innerHTML = (t.redirectEnd - t.redirectStart)/1000;
          document.getElementById('domComplete').innerHTML = (t.domComplete - t.domLoading)/1000;

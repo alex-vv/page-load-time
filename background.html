@@ -3,7 +3,7 @@ cache = {};
 chrome.extension.onRequest.addListener(
   function(request, sender, sendResponse) {
        cache[sender.tab.id] = request.timing;
-       chrome.browserAction.setBadgeText({text: request.time, tabId: sender.tab.id});       
+       chrome.browserAction.setBadgeText({text: request.time, tabId: sender.tab.id});
        sendResponse({});
   });
 </script>
