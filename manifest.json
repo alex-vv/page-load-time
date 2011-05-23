@@ -1,0 +1,18 @@
+{
+  "name": "Page Load Time",
+  "version": "1.0",
+  "description": "Displays Page load time",
+  "background_page": "background.html",
+  "browser_action": {
+    "default_icon": "stopwatch.png",
+    "default_popup": "info.html"
+  },
+  "content_scripts": [{
+      "matches": ["*://*/*"],
+      "js": ["timer.js"]
+  }],
+  "permissions": [
+      "http://*/*",
+      "tabs"
+  ]
+}
