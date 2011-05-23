@@ -5,7 +5,7 @@ check();
 
 function measure() {
     var t = performance.timing;
-    var end = t.loadEventEnd; // or t.domContentLoadedEventEnd
-    var time = String((end - t.fetchStart) / 1000).substring(0, 4);
+    // we have only 4 chars in our disposal including decimal point
+    var time = String(((t.loadEventEnd - t.fetchStart) / 1000).toPrecision(3)).substring(0, 4);
     chrome.extension.sendRequest({time: time, timing: t});
 }
