@@ -1,10 +1,10 @@
 {
-  "name": "Page Load Time",
+  "name": "Page load time",
   "version": "1.0",
   "description": "Displays page load time in a toolbar",
   "background_page": "background.html",
   "browser_action": {
-    "default_icon": "stopwatch.png",
+    "default_icon": "stopwatch22.png",
     "default_popup": "info.html"
   },
   "content_scripts": [{
@@ -15,5 +15,9 @@
       "http://*/*",
       "tabs"
   ],
+  "icons": { "16": "stopwatch16.png",
+             "48": "stopwatch48.png",
+             "128": "stopwatch128.png"
+		   },
   "minimum_chrome_version": "6.0"
 }
