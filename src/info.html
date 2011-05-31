@@ -10,57 +10,79 @@
     td {
         border: 1px solid black;
     }
+    #response {
+        background-color: #E5E5E5;
+    }
+    
 </style>
 <script>
+     function set(id, value) {
+         document.getElementById(id).innerHTML = value;
+     }
      chrome.tabs.getSelected(null, function (tab) {
-         console.log(tab.id);
          var t = chrome.extension.getBackgroundPage().cache[tab.id];
-         document.getElementById('redirect').innerHTML = t.redirectEnd - t.redirectStart;
-         document.getElementById('redirect_total').innerHTML = (t.redirectEnd - t.redirectStart)/1000;
-         document.getElementById('domComplete').innerHTML = (t.domComplete - t.domLoading)/1000;
-         document.getElementById('domCompleteTotal').innerHTML = (t.domComplete - t.redirectStart)/1000;
+         var start = t.redirectStart == 0 ? t.fetchStart : t.redirectStart;
+         set('redirect', t.redirectEnd - t.redirectStart);
+         set('redirectTotal', t.redirectEnd - t.redirectStart);
+         set('dns', t.domainLookupEnd - t.domainLookupStart);
+         set('dnsTotal', t.domainLookupEnd - start);
+         set('connect', t.connectEnd - t.connectStart);
+         set('connectTotal', t.connectEnd - start);
+         set('request', t.requestStart - t.connectEnd);
+         set('requestTotal', t.requestStart - start);
+         set('response', t.responseStart - t.requestStart);
+         set('responseTotal', t.responseStart - start);
+         set('responseEnd', t.responseEnd - t.responseStart);
+         set('responseEndTotal', t.responseEnd - start);
+         set('contentLoaded', t.domContentLoadedEventEnd - t.domLoading);
+         set('contentLoadedTotal' , t.domContentLoadedEventEnd - start);
+         set('domComplete', t.domComplete - t.domContentLoadedEventEnd);
+         set('domCompleteTotal' , t.domComplete - start);
+         set('load', t.loadEventEnd - t.domComplete);
+         set('loadTotal' , t.loadEventEnd - start);
      });
 </script>
+<h3>Load timings (ms)</h3>
 <table cellpadding="3" cellspacing="0">
     <thead>
         <th>Event</th>
         <th>Self time</th>
-        <th>Total time</th>
+        <th>Cumulative time</th>
    </thead>
     <tr>
         <td>Redirect</td>
         <td id="redirect"></td>
-        <td id="redirect_total"></td>
-    </tr>
-    <tr>
-        <td>Cache</td>
-        <td id="appCache"></td>
-        <td id="redirect"></td>
+        <td id="redirectTotal"></td>
     </tr>
     <tr>
         <td>DNS</td>
         <td id="dns"></td>
-        <td id="dns"></td>
+        <td id="dnsTotal"></td>
     </tr>
     <tr>
         <td>Connect</td>
-        <td id="connectStart"></td>
-        <td id="dns"></td>
+        <td id="connect"></td>
+        <td id="connectTotal"></td>
+    </tr>
+    <tr>
+        <td>Request</td>
+        <td id="request"></td>
+        <td id="requestTotal"></td>
     </tr>
     <tr>
         <td>First response</td>
-        <td id="responseStart"></td>
-        <td id="dns"></td>
+        <td id="response" title="Approximate server processing time"></td>
+        <td id="responseTotal"></td>
     </tr>
     <tr>
         <td>Response end</td>
         <td id="responseEnd"></td>
-        <td id="dns"></td>
+        <td id="responseEndTotal"></td>
     </tr>
     <tr>
         <td>Content loaded</td>
         <td id="contentLoaded"></td>
-        <td id="dns"></td>
+        <td id="contentLoadedTotal"></td>
     </tr>
     <tr>
         <td>DOM complete</td>
@@ -69,7 +91,7 @@
     </tr>
     <tr>
         <td>Load event</td>
-        <td id="loadEventEnd"></td>
-        <td id="loadEventEndTotal"></td>
+        <td id="load"></td>
+        <td id="loadTotal"></td>
     </tr>
 </table>
