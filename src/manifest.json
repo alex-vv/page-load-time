@@ -1,7 +1,7 @@
 {
   "name": "Page load time",
   "version": "1.0",
-  "description": "Displays page load time in a toolbar",
+  "description": "Displays page load time in the toolbar",
   "background_page": "background.html",
   "browser_action": {
     "default_icon": "stopwatch22.png",
