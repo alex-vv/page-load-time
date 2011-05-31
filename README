@@ -1,0 +1,2 @@
+Google Chrome extension to measure page load time and display it in a toolbar.
+Web Timing API is used for precise measurement. 
