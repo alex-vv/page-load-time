@@ -1,6 +1,6 @@
 {
   "name": "Page load time",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Displays page load time in the toolbar",
   "background_page": "background.html",
   "browser_action": {
