@@ -1,107 +1,144 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <style> 
     body {
         font-family: Tahoma, sans-serif;
         font-size: 10pt;
     }
-    table {
-        border-collapse: collapse;
+    #container {
+        width: 301px;
     }
-    th {
-        background-color: #E0E0E0;
-        border: 1px solid #A0A0A0;
-        font-size: 10pt;
+    span {
+        width: 58px;
+        display: inline-block;       
+        border-left: 1px solid #888;
+        text-align: right;
     }
-    td {
-        border: 1px solid #A0A0A0;
-        font-size: 10pt;
+    .lbl {
+        width: 100px;
+        text-align: left;
+        padding-left: 4px;
     }
-    #response {
-        background-color: #E5E5E5;
+    .sub {
+        text-indent: 10px;
     }
-    h3 {
-        margin-top: 0.5em;
-        margin-bottom: 0.5em;
+    .row, #header {
+        border: 1px solid #888;
+        border-width: 0 1px 1px 0;
+    }
+    #header {
+        border-top-width: 1px;
+    }
+    #header span {
+        text-align: center;
+    }
+    .row {
+        background-image: -webkit-gradient(linear, left bottom, left top,
+            color-stop(0.49, #a9d0e3), color-stop(0.75, #c3e0ee));
+        background-repeat: no-repeat;
     }
     
 </style>
 <script>
-     function set(id, value) {
-         document.getElementById(id).innerHTML = value;
+    var total,
+        acc = 0;
+
+    function set(id, start, length, noacc) {
+        var x = Math.round(start / total * 300);
+
+        if (!noacc) {
+           acc += length;
+        }
+        document.getElementById(id + 'When').innerHTML = start;
+        document.getElementById(id).innerHTML = length;
+        document.getElementById(id + 'Total').innerHTML = noacc ? '-' : acc;
+        document.getElementById('r-' + id).style.cssText =
+            'background-size:' + Math.round(length / total * 300) + 'px 100%;' +
+            'background-position-x:' + (x >= 300 ? 299 : x) + 'px;';
      }
+
      chrome.tabs.getSelected(null, function (tab) {
-         var t = chrome.extension.getBackgroundPage().cache[tab.id];
-         var start = t.redirectStart == 0 ? t.fetchStart : t.redirectStart;
-         set('redirect', t.redirectEnd - t.redirectStart);
-         set('redirectTotal', t.redirectEnd - t.redirectStart);
-         set('dns', t.domainLookupEnd - t.domainLookupStart);
-         set('dnsTotal', t.domainLookupEnd - start);
-         set('connect', t.connectEnd - t.connectStart);
-         set('connectTotal', t.connectEnd - start);
-         set('request', t.requestStart - t.connectEnd);
-         set('requestTotal', t.requestStart - start);
-         set('response', t.responseStart - t.requestStart);
-         set('responseTotal', t.responseStart - start);
-         set('responseEnd', t.responseEnd - t.responseStart);
-         set('responseEndTotal', t.responseEnd - start);
-         set('contentLoaded', t.domContentLoadedEventEnd - t.domLoading);
-         set('contentLoadedTotal' , t.domContentLoadedEventEnd - start);
-         set('domComplete', t.domComplete - t.domContentLoadedEventEnd);
-         set('domCompleteTotal' , t.domComplete - start);
-         set('load', t.loadEventEnd - t.domComplete);
-         set('loadTotal' , t.loadEventEnd - start);
+         var t = chrome.extension.getBackgroundPage().cache[tab.id],
+             start = t.redirectStart == 0 ?t.fetchStart : t.redirectStart;
+
+         total = t.loadEventEnd - start;
+
+         // https://dvcs.w3.org/hg/webperf/raw-file/tip/specs/NavigationTiming/Overview.html#processing-model
+         set('redirect', 0, t.redirectEnd - t.redirectStart);
+         set('dns', t.domainLookupStart - start,
+             t.domainLookupEnd - t.domainLookupStart);
+         set('connect', t.connectStart - start, t.connectEnd - t.connectStart);
+         set('request', t.requestStart - start,
+             t.responseStart - t.requestStart);
+         set('response', t.responseStart - start,
+             t.responseEnd - t.responseStart);
+         set('dom', t.domLoading - start, t.domComplete - t.domLoading);
+         set('domInteractive', t.domInteractive - start, 0, true);
+         set('contentLoaded', t.domContentLoadedEventStart - start,
+             t.domContentLoadedEventEnd - t.domContentLoadedEventStart, true);
+         set('load', t.loadEventStart - start,
+             t.loadEventEnd - t.loadEventStart);
      });
 </script>
 <h3>Load timings (ms)</h3>
-<table cellpadding="3" cellspacing="0">
-    <thead>
-        <th align="left">Event</th>
-        <th align="left">Self&nbsp;time</th>
-        <th align="left">Cumulative&nbsp;time</th>
-   </thead>
-    <tr>
-        <td>Redirect</td>
-        <td id="redirect"></td>
-        <td id="redirectTotal"></td>
-    </tr>
-    <tr>
-        <td>DNS</td>
-        <td id="dns"></td>
-        <td id="dnsTotal"></td>
-    </tr>
-    <tr>
-        <td>Connect</td>
-        <td id="connect"></td>
-        <td id="connectTotal"></td>
-    </tr>
-    <tr>
-        <td>Request</td>
-        <td id="request"></td>
-        <td id="requestTotal"></td>
-    </tr>
-    <tr>
-        <td>First&nbsp;response</td>
-        <td id="response" title="Approximate server processing time"></td>
-        <td id="responseTotal"></td>
-    </tr>
-    <tr>
-        <td>Response&nbsp;end</td>
-        <td id="responseEnd"></td>
-        <td id="responseEndTotal"></td>
-    </tr>
-    <tr>
-        <td>Content&nbsp;loaded</td>
-        <td id="contentLoaded"></td>
-        <td id="contentLoadedTotal"></td>
-    </tr>
-    <tr>
-        <td>DOM&nbsp;complete</td>
-        <td id="domComplete"></td>
-        <td id="domCompleteTotal"></td>
-    </tr>
-    <tr>
-        <td>Load&nbsp;event</td>
-        <td id="load"></td>
-        <td id="loadTotal"></td>
-    </tr>
-</table>
+<div id="container">
+    <div id="header">
+        <span class="lbl">Event</span>
+        <span>When</span>
+        <span>How long</span>
+        <span>Sum</span>
+    </div>
+    <div class="row" id="r-redirect">
+        <span class="lbl">Redirect</span>
+        <span id="redirectWhen"></span>
+        <span id="redirect"></span>
+        <span id="redirectTotal"></span>
+    </div>
+    <div class="row" id="r-dns">
+        <span class="lbl">DNS</span>
+        <span id="dnsWhen"></span>
+        <span id="dns"></span>
+        <span id="dnsTotal"></span>
+    </div>
+    <div class="row" id="r-connect">
+        <span class="lbl">Connect</span>
+        <span id="connectWhen"></span>
+        <span id="connect"></span>
+        <span id="connectTotal"></span>
+    </div>
+    <div class="row" id="r-request">
+        <span class="lbl">Request</span>
+        <span id="requestWhen"></span>
+        <span id="request"></span>
+        <span id="requestTotal"></span>
+    </div>
+    <div class="row" id="r-response">
+        <span class="lbl">Response</span>
+        <span id="responseWhen"></span>
+        <span id="response"></span>
+        <span id="responseTotal"></span>
+    </div>
+    <div class="row" id="r-dom">
+        <span class="lbl">DOM</span>
+        <span id="domWhen"></span>
+        <span id="dom"></span>
+        <span id="domTotal"></span>
+    </div>
+    <div class="row" id="r-domInteractive">
+        <span class="lbl sub">Interactive</span>
+        <span id="domInteractiveWhen"></span>
+        <span id="domInteractive"></span>
+        <span id="domInteractiveTotal"></span>
+    </div>
+    <div class="row" id="r-contentLoaded">
+        <span class="lbl sub">Content loaded</span>
+        <span id="contentLoadedWhen"></span>
+        <span id="contentLoaded"></span>
+        <span id="contentLoadedTotal"></span>
+    </div>
+    <div class="row" id="r-load">
+        <span class="lbl">Load event</span>
+        <span id="loadWhen"></span>
+        <span id="load"></span>
+        <span id="loadTotal"></span>
+    </div>
+</div>
