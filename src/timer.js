@@ -9,7 +9,7 @@
         if (t.loadEventEnd > 0) {
             // we have only 4 chars in our disposal including decimal point
             var time = String(((t.loadEventEnd - start) / 1000).toPrecision(3)).substring(0, 4);
-            chrome.extension.sendRequest({time: time, timing: t});
+            chrome.runtime.sendMessage({time: time, timing: t});
         }
     }
 })();
