@@ -1,5 +1,6 @@
 // Setting a toolbar badge text
-chrome.runtime.onMessage.addListener(
+var roe = chrome.runtime && chrome.runtime.sendMessage ? 'runtime' : 'extension';
+chrome[roe].onMessage.addListener(
     function(request, sender, sendResponse) {
         // This cache stores page load time for each tab, so they don't interfere
         chrome.storage.local.get('cache', function(data) {
