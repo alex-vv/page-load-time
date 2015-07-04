@@ -18,9 +18,12 @@
                 // https://code.google.com/p/chromium/issues/detail?id=467366
                 // need to manually copy properties via for .. in loop
                 var timing = {};
-                for (p in t) {
-                    timing[p] = t[p];
+                for (var p in t) {
+                    if (typeof(t[p]) !== "function") {
+                        timing[p] = t[p];
+                    }
                 }
+
                 chrome[roe].sendMessage({time: time, timing: timing});
             }
         }, 0);
