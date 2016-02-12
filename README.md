@@ -9,9 +9,6 @@ From page load time `2.0`, we offer the following features:
 In order to better understand the meaning of its various indicators, see the following figure:
 ![the timing attributes](./timestamp-diagram.svg)
 
-Icons are from Human-O2 iconset 
-http://schollidesign.deviantart.com/art/Human-O2-Iconset-105344123
-
-# License 
+# License
 
 This project is licensed under the terms of the MIT license.
