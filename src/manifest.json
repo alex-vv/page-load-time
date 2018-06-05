@@ -1,6 +1,6 @@
 {
   "name": "Page load time",
-  "version": "1.2.4",
+  "version": "2.0.0",
   "manifest_version": 2,
   "description": "Displays page load time in the toolbar",
   "background": {
@@ -12,17 +12,18 @@
     "default_popup": "info.html"
   },
   "content_scripts": [{
-      "matches": ["*://*/*"],
-      "js": ["timer.js"]
+    "matches": ["*://*/*"],
+    "js": ["performance.js"]
   }],
   "permissions": [
-      "http://*/*",
-      "tabs",
-      "storage",
-      "webNavigation"
+    "http://*/*",
+    "tabs",
+    "storage",
+    "webNavigation"
   ],
-  "icons": { "16": "stopwatch16.png",
-             "48": "stopwatch48.png",
-             "128": "stopwatch128.png"
-		   }
+  "icons": {
+    "16": "stopwatch16.png",
+    "48": "stopwatch48.png",
+    "128": "stopwatch128.png"
+  }
 }

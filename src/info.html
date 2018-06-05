@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <style> 
     body {
         font-family: Tahoma, sans-serif;
@@ -9,9 +9,16 @@
     }
     span {
         width: 58px;
-        display: inline-block;       
+        display: table-cell;
         border-left: 1px solid #888;
         text-align: right;
+    }
+    span:not(:first-child) {
+        padding-right: 5px;
+        max-width: 58px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
     }
     .lbl {
         width: 100px;
@@ -42,6 +49,10 @@
 
 <h3>Load timings (ms)</h3>
 <div id="container">
+    <div>
+        Redirect Count:
+        <b id="redirectCount">1</b>
+    </div>
     <div id="header">
         <span class="lbl">Event</span>
         <span>When</span>
