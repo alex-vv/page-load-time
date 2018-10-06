@@ -16,10 +16,8 @@
     "js": ["performance.js"]
   }],
   "permissions": [
-    "http://*/*",
-    "tabs",
-    "storage",
-    "webNavigation"
+    "activeTab",
+    "storage"
   ],
   "icons": {
     "16": "stopwatch16.png",
