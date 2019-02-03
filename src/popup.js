@@ -19,8 +19,8 @@ function setCount(id, count) {
   document.getElementById(id + 'Count').innerText = count || '-';
 }
 
-chrome.tabs.getSelected(null, function (tab) {
-  chrome.storage.local.get('cache', function(data) {
+getSelectedTab(function(tab) {
+  storageLocal().get('cache', function(data) {
     var t = data.cache['tab' + tab.id];
     total = t.totalTime;
 
