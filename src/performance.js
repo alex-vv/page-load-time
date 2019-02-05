@@ -25,7 +25,7 @@
       l.redirectTime  = ntEntry.redirectEnd - ntEntry.redirectStart;
       l.fetchStart    = ntEntry.fetchStart;
       l.domainLookupStart = ntEntry.domainLookupStart;
-      l.domainLooupTime   = ntEntry.domainLookupEnd - ntEntry.domainLookupStart;
+      l.domainLookupTime  = ntEntry.domainLookupEnd - ntEntry.domainLookupStart;
       l.connectStart  = ntEntry.connectStart;
       l.connectTime   = ntEntry.connectEnd - ntEntry.connectStart;
       l.requestStart  = ntEntry.requestStart;
@@ -55,7 +55,7 @@
       l.redirectTime  = timing.redirectEnd - timing.redirectStart;
       l.fetchStart    = timing.fetchStart - l.startTime;
       l.domainLookupStart = timing.domainLookupStart - l.startTime;
-      l.domainLooupTime   = timing.domainLookupEnd - timing.domainLookupStart;
+      l.domainLookupTime   = timing.domainLookupEnd - timing.domainLookupStart;
       l.connectStart  = timing.connectStart - l.startTime;
       l.connectTime   = timing.connectEnd - timing.connectStart;
       l.requestStart  = timing.requestStart - l.startTime;
