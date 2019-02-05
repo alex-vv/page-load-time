@@ -1,115 +1,67 @@
 <!DOCTYPE html>
-<style>
-    body {
-        font-family: Tahoma, sans-serif;
-        font-size: 10pt;
-    }
-    #container {
-        width: 301px;
-    }
-    span {
-        width: 58px;
-        display: table-cell;
-        border-left: 1px solid #888;
-        text-align: right;
-    }
-    span:not(:first-child) {
-        padding-right: 5px;
-        max-width: 58px;
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-    }
-    .lbl {
-        width: 100px;
-        text-align: left;
-        padding-left: 4px;
-    }
-    .sub {
-        text-indent: 10px;
-    }
-    .row, #header {
-        border: 1px solid #888;
-        border-width: 0 1px 1px 0;
-    }
-    #header {
-        border-top-width: 1px;
-    }
-    #header span {
-        text-align: center;
-    }
-    .row {
-        background-image: -webkit-gradient(linear, left bottom, left top,
-            color-stop(0.49, #a9d0e3), color-stop(0.75, #c3e0ee));
-        background-repeat: no-repeat;
-    }
-
-</style>
+<link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet">
+<link rel="stylesheet" href="popup.css">
 <script src="polyfill.js"></script>
 <script src="popup.js"></script>
 
 <h3>Load timings (ms)</h3>
 <div id="container">
-    <div>
-        Redirect Count:
-        <b id="redirectCount">1</b>
-    </div>
     <div id="header">
-        <span class="lbl">Event</span>
-        <span>When</span>
-        <span>How long</span>
-        <span>Sum</span>
+        <span>Event</span>
+        <span>Start</span>
+        <span>Duration</span>
+        <span>End</span>
     </div>
     <div class="row" id="r-redirect">
-        <span class="lbl">Redirect</span>
+        <span>Redirect</span>
         <span id="redirectWhen"></span>
         <span id="redirect"></span>
         <span id="redirectTotal"></span>
     </div>
     <div class="row" id="r-dns">
-        <span class="lbl">DNS</span>
+        <span>DNS</span>
         <span id="dnsWhen"></span>
         <span id="dns"></span>
         <span id="dnsTotal"></span>
     </div>
     <div class="row" id="r-connect">
-        <span class="lbl">Connect</span>
+        <span>Connect</span>
         <span id="connectWhen"></span>
         <span id="connect"></span>
         <span id="connectTotal"></span>
     </div>
     <div class="row" id="r-request">
-        <span class="lbl">Request</span>
+        <span>Request</span>
         <span id="requestWhen"></span>
         <span id="request"></span>
         <span id="requestTotal"></span>
     </div>
     <div class="row" id="r-response">
-        <span class="lbl">Response</span>
+        <span>Response</span>
         <span id="responseWhen"></span>
         <span id="response"></span>
         <span id="responseTotal"></span>
     </div>
     <div class="row" id="r-dom">
-        <span class="lbl">DOM</span>
+        <span>DOM</span>
         <span id="domWhen"></span>
         <span id="dom"></span>
         <span id="domTotal"></span>
     </div>
     <div class="row" id="r-domInteractive">
-        <span class="lbl sub">Interactive</span>
+        <span class="sub">Interactive</span>
         <span id="domInteractiveWhen"></span>
         <span id="domInteractive"></span>
         <span id="domInteractiveTotal"></span>
     </div>
     <div class="row" id="r-contentLoaded">
-        <span class="lbl sub">Content loaded</span>
+        <span class="sub">Content loaded</span>
         <span id="contentLoadedWhen"></span>
         <span id="contentLoaded"></span>
         <span id="contentLoadedTotal"></span>
     </div>
     <div class="row" id="r-load">
-        <span class="lbl">Load event</span>
+        <span>Load event</span>
         <span id="loadWhen"></span>
         <span id="load"></span>
         <span id="loadTotal"></span>

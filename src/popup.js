@@ -15,16 +15,10 @@ function set(id, start, length, noacc) {
     'background-position-x:' + (x >= 300 ? 299 : x) + 'px;';
 }
 
-function setCount(id, count) {
-  document.getElementById(id + 'Count').innerText = count || '-';
-}
-
 getSelectedTab(function(tab) {
   storageLocal().get('cache', function(data) {
     var t = data.cache['tab' + tab.id];
     total = t.totalTime;
-
-    setCount('redirect', t.redirectCount);
 
     // https://dvcs.w3.org/hg/webperf/raw-file/tip/specs/NavigationTiming/Overview.html#processing-model
     set('redirect', 0, t.redirectTime);
