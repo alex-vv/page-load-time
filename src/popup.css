@@ -54,3 +54,10 @@ h3 {
     margin: 0.5em;
     margin-left: 3px;
 }
+#r-total {
+    background: none;
+    font-weight: 500;
+}
+#total {
+    padding-left: 200px;
+}

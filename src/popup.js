@@ -26,5 +26,6 @@ getSelectedTab(function(tab) {
     set('contentLoaded', t.domContentLoadedEventStart,
         t.domContentLoadedEventTime, true);
     set('load', t.loadEventStart, t.loadEventTime);
+    document.getElementById("total").innerHTML = t.loadEventStart + t.loadEventTime;
   });
 });
