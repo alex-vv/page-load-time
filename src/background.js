@@ -8,6 +8,7 @@ chrome.runtime.onMessage.addListener(
       chrome.storage.local.set(data);
     });
     chrome.browserAction.setBadgeText({text: request.time, tabId: sender.tab.id});
+    chrome.browserAction.setPopup({tabId: sender.tab.id, popup: "popup.html"})
   }
 );
 
