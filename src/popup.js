@@ -1,8 +1,9 @@
+// TODO drop this?
 var total = 0;
 
 function set(id, start, end, noacc) {
-  var length = Math.round(end - start);
-  var x = Math.round(start / total * 300);
+  const length = Math.round(end - start);
+  const x = Math.round(start / total * 300);
   document.getElementById(id + 'When').innerHTML = Math.round(start);
   document.getElementById(id).innerHTML = length;
   document.getElementById(id + 'Total').innerHTML = noacc ? '-' : Math.round(end);
@@ -12,20 +13,30 @@ function set(id, start, end, noacc) {
 }
 
 getSelectedTab(function(tab) {
-  storageLocal().get('cache', function(data) {
-    var t = data.cache['tab' + tab.id];
-    total = t.duration;
+  storageLocal().get(tab.id.toString(), function(result) {
+    // TODO firefox?
+    chrome.storage.sync.get({
+      externalRequests: false
+    }, function(items) {
+      const t = result[tab.id];
+      total = t.duration;
 
-    // https://dvcs.w3.org/hg/webperf/raw-file/tip/specs/NavigationTiming/Overview.html#processing-model
-    set('redirect', t.redirectStart, t.redirectEnd);
-    set('dns', t.domainLookupStart, t.domainLookupEnd);
-    set('connect', t.connectStart, t.connectEnd);
-    set('request', t.requestStart, t.responseStart);
-    set('response', t.responseStart, t.responseEnd);
-    set('dom', t.responseStart, t.domComplete);
-    set('domInteractive', t.domInteractive, t.domInteractive, true);
-    set('contentLoaded', t.domContentLoadedEventStart, t.domContentLoadedEventEnd, true);
-    set('load', t.loadEventStart, t.loadEventEnd);
-    document.getElementById("total").innerHTML = Math.round(t.duration);
+      // https://dvcs.w3.org/hg/webperf/raw-file/tip/specs/NavigationTiming/Overview.html#processing-model
+      set('redirect', t.redirectStart, t.redirectEnd);
+      set('dns', t.domainLookupStart, t.domainLookupEnd);
+      set('connect', t.connectStart, t.connectEnd);
+      set('request', t.requestStart, t.responseStart);
+      set('response', t.responseStart, t.responseEnd);
+      set('dom', t.responseStart, t.domComplete);
+      set('domInteractive', t.domInteractive, t.domInteractive, true);
+      set('contentLoaded', t.domContentLoadedEventStart, t.domContentLoadedEventEnd, true);
+      set('load', t.loadEventStart, t.loadEventEnd);
+
+      if (items.externalRequests) {
+        set('external', t.externalStart || 0, t.externalEnd || 0);
+        document.getElementById('r-external').style.display = 'block';
+      }
+      document.getElementById("total").innerHTML = Math.round(t.duration);
+    });
   });
 });

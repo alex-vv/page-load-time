@@ -1,4 +1,4 @@
-var isChrome = typeof browser === "undefined";
+const isChrome = typeof browser === "undefined";
 
 function getSelectedTab(callback) {
   if (isChrome) {

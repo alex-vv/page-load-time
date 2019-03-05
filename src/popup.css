@@ -61,3 +61,6 @@ h3 {
 #total {
     padding-left: 200px;
 }
+#r-external {
+    display: none;
+}

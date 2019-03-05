@@ -4,8 +4,8 @@
   "manifest_version": 2,
   "description": "Displays page load time in the toolbar",
   "background": {
-    "scripts": ["background.js"],
-    "persistent": false
+    "scripts": ["polyfill.js", "background.js"],
+    "persistent": true
   },
   "browser_action": {
     "default_icon": "stopwatch22.png"
@@ -14,9 +14,16 @@
     "matches": ["*://*/*"],
     "js": ["performance.js"]
   }],
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": false
+  },
   "permissions": [
     "activeTab",
-    "storage"
+    "storage",
+    "webNavigation",
+    "webRequest",
+    "*://*/*"
   ],
   "icons": {
     "16": "stopwatch16.png",
