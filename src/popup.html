@@ -1,73 +1,105 @@
 <!DOCTYPE html>
-<link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet">
-<link rel="stylesheet" href="popup.css">
-<script src="polyfill.js"></script>
-<script src="popup.js"></script>
-
-<h3>Load timings (ms)</h3>
-<div id="container">
-    <div id="header">
-        <span>Event</span>
-        <span>Start</span>
-        <span>Duration</span>
-        <span>End</span>
+<html>
+  <head>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet">
+    <link rel="stylesheet" href="popup.css">
+  </head>
+  <body>
+    <div class="">
+        <h3>Load timings (ms)</h3>
+        <div id="container">
+            <div id="header">
+                <span>Event</span>
+                <span>Start</span>
+                <span>Duration</span>
+                <span>End</span>
+                <div class="current-perf"></div>
+                <div class="average-perf"></div>
+            </div>
+            <div class="row" id="r-redirect">
+                <span>Redirect</span>
+                <span id="redirectWhen"></span>
+                <span id="redirect"></span>
+                <span id="redirectTotal"></span>
+                <div class="current-perf"></div>
+                <div class="average-perf"></div>
+            </div>
+            <div class="row" id="r-dns">
+                <span>DNS</span>
+                <span id="dnsWhen"></span>
+                <span id="dns"></span>
+                <span id="dnsTotal"></span>
+                <div class="current-perf"></div>
+                <div class="average-perf"></div>
+            </div>
+            <div class="row" id="r-connect">
+                <span>Connect</span>
+                <span id="connectWhen"></span>
+                <span id="connect"></span>
+                <span id="connectTotal"></span>
+                <div class="current-perf"></div>
+                <div class="average-perf"></div>
+            </div>
+            <div class="row" id="r-request">
+                <span>Request</span>
+                <span id="requestWhen"></span>
+                <span id="request"></span>
+                <span id="requestTotal"></span>
+                <div class="current-perf"></div>
+                <div class="average-perf"></div>
+            </div>
+            <div class="row" id="r-response">
+                <span>Response</span>
+                <span id="responseWhen"></span>
+                <span id="response"></span>
+                <span id="responseTotal"></span>
+                <div class="current-perf"></div>
+                <div class="average-perf"></div>
+            </div>
+            <div class="row" id="r-dom">
+                <span>DOM</span>
+                <span id="domWhen"></span>
+                <span id="dom"></span>
+                <span id="domTotal"></span>
+                <div class="current-perf"></div>
+                <div class="average-perf"></div>
+            </div>
+            <div class="row" id="r-domInteractive">
+                <span class="sub">Interactive</span>
+                <span id="domInteractiveWhen"></span>
+                <span id="domInteractive"></span>
+                <span id="domInteractiveTotal"></span>
+                <div class="current-perf"></div>
+                <div class="average-perf"></div>
+            </div>
+            <div class="row" id="r-contentLoaded">
+                <span class="sub">Content loaded</span>
+                <span id="contentLoadedWhen"></span>
+                <span id="contentLoaded"></span>
+                <span id="contentLoadedTotal"></span>
+                <div class="current-perf"></div>
+                <div class="average-perf"></div>
+            </div>
+            <div class="row" id="r-load">
+                <span>Load event</span>
+                <span id="loadWhen"></span>
+                <span id="load"></span>
+                <span id="loadTotal"></span>
+                <div class="current-perf"></div>
+                <div class="average-perf"></div>
+            </div>
+            <div class="row" id="r-total">
+                <span>Total</span>
+                <span id="total"></span>
+            </div>
+        </div>
     </div>
-    <div class="row" id="r-redirect">
-        <span>Redirect</span>
-        <span id="redirectWhen"></span>
-        <span id="redirect"></span>
-        <span id="redirectTotal"></span>
+    <div class="">
+        <input type="search" name="search" list="locations" id="search" />
+        <datalist id="locations_href"></datalist>
+        <datalist id="locations_domaine"></datalist>
     </div>
-    <div class="row" id="r-dns">
-        <span>DNS</span>
-        <span id="dnsWhen"></span>
-        <span id="dns"></span>
-        <span id="dnsTotal"></span>
-    </div>
-    <div class="row" id="r-connect">
-        <span>Connect</span>
-        <span id="connectWhen"></span>
-        <span id="connect"></span>
-        <span id="connectTotal"></span>
-    </div>
-    <div class="row" id="r-request">
-        <span>Request</span>
-        <span id="requestWhen"></span>
-        <span id="request"></span>
-        <span id="requestTotal"></span>
-    </div>
-    <div class="row" id="r-response">
-        <span>Response</span>
-        <span id="responseWhen"></span>
-        <span id="response"></span>
-        <span id="responseTotal"></span>
-    </div>
-    <div class="row" id="r-dom">
-        <span>DOM</span>
-        <span id="domWhen"></span>
-        <span id="dom"></span>
-        <span id="domTotal"></span>
-    </div>
-    <div class="row" id="r-domInteractive">
-        <span class="sub">Interactive</span>
-        <span id="domInteractiveWhen"></span>
-        <span id="domInteractive"></span>
-        <span id="domInteractiveTotal"></span>
-    </div>
-    <div class="row" id="r-contentLoaded">
-        <span class="sub">Content loaded</span>
-        <span id="contentLoadedWhen"></span>
-        <span id="contentLoaded"></span>
-        <span id="contentLoadedTotal"></span>
-    </div>
-    <div class="row" id="r-load">
-        <span>Load event</span>
-        <span id="loadWhen"></span>
-        <span id="load"></span>
-        <span id="loadTotal"></span>
-    </div>
-    <div class="row" id="r-total">
-        <span>Total</span>
-        <span id="total"></span>
-    </div>
-</div>
+    <script src="polyfill.js"></script>
+    <script src="popup.js"></script>
+  </body>
+</html>

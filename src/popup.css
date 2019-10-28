@@ -43,11 +43,6 @@ span:last-child {
 #header span:first-child {
     text-align: left;
 }
-.row {
-    background-image: -webkit-gradient(linear, left bottom, left top,
-        color-stop(0, #c3e0ee), color-stop(0, #c3e0ee));
-    background-repeat: no-repeat;
-}
 h3 {
     font-size: 16px;
     color: rgba(0,0,0,.54);

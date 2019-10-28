@@ -13,7 +13,13 @@
       if (l.duration > 0) {
         // we have only 4 chars in our disposal including decimal point
         var t = (l.duration / 1000).toFixed(2);
-        chrome.runtime.sendMessage({time: t, timing: l});
+        var res = {
+          location: window.location.href,
+          date: (new Date()).toDateString(),
+          time: t,
+          timing: l
+        }
+        chrome.runtime.sendMessage(res);
       }
     }, 0);
   }
