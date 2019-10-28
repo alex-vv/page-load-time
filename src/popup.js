@@ -26,8 +26,6 @@ function set(id, total, current, noacc, avg, avgTotal) {
   document.getElementById(id).innerHTML = length;
   document.getElementById(id + 'Total').innerHTML = noacc ? '-' : Math.round(current.end);
   document.getElementById('r-' + id).style.cssText = 'position:relative;';
-  //   'background-size:' + Math.round(length / total * 300) + 'px 100%;' +
-  //   'background-position-x:' + (x >= 300 ? 299 : x) + 'px;';
 }
 
 function updatePageTime(performanceData, datas) {
@@ -117,7 +115,7 @@ function updatePageTime(performanceData, datas) {
         sumObj.contentLoaded.end /= nbrElem;
         sumObj.duration /= nbrElem;
       }
-      return sumObj
+      return sumObj;
     }, {
       redirect: {
         start: 0,
@@ -157,7 +155,6 @@ function updatePageTime(performanceData, datas) {
       },
       duration: 0,
     });
-    console.log('average', average);
   }
 
   // https://dvcs.w3.org/hg/webperf/raw-file/tip/specs/NavigationTiming/Overview.html#processing-model
@@ -177,7 +174,6 @@ var checkReady = setInterval(() => {
     clearInterval(checkReady);
     chrome.runtime.onMessage.addListener(
       function (request, sender, sendResponse) {
-        console.log('popup', request, sender, window.location);
         if (request.source === "background") {
           updatePageTime(request.currentPerf.timing, request.performance[request.currentPerf.location]);
         }

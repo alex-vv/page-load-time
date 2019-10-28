@@ -18,7 +18,7 @@
           date: (new Date()).toDateString(),
           time: t,
           timing: l
-        }
+        };
         chrome.runtime.sendMessage(res);
       }
     }, 0);
