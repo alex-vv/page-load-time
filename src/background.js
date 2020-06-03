@@ -6,6 +6,8 @@ const tabs = {};
 const resourceTypes = [
   "main_frame", "stylesheet", "script", "image", "font", "object", "xmlhttprequest", "media", "other"
 ];
+// TODO cleanup
+var timeout = null;
 
 function setBadgeAndPopup(tabId, request) {
   console.log('showing badge and popup', JSON.stringify(request))
@@ -34,7 +36,7 @@ chrome.webRequest.onBeforeRequest.addListener((details) => {
       }
     }
     const tab = tabs[tabId];
-    if (!tab.loaded) {
+    if (!tab.loaded || timeout != null) {
       if (!tab.requestsStart && tab.initialTimestamp) {
         tab.requestsStart = timeStamp - tab.initialTimestamp;
       }
@@ -42,11 +44,22 @@ chrome.webRequest.onBeforeRequest.addListener((details) => {
         tab.initialTimestamp = timeStamp;
       }
       tab.requestIds.add(requestId);
+      if (timeout != null) {
+        timeout.cancel();
+        timeout = null;
+      }
     }
     console.log(tab)
   }
 }, { urls: ["<all_urls>"], types: resourceTypes});
 
+// setTimeout - add flag to tab (vs tab.completed?)
+// like tab.waiting
+// initially - false
+// setTimeout - waiting = true, or check global timout
+// new request && waiting == true => cancel setTimeout, waiting = false
+// no new requests (on timeout function) => setBadgeAndPopup
+// what to do with if (tab.loaded) ? - can it handle the case? - no
 function onEnd(details) {
   const { tabId, requestId, timeStamp } = details;
   if (tabId > 0) {
@@ -65,7 +78,9 @@ function onEnd(details) {
         storageLocal().set({[key]: request});
         console.log('storage.local set')
         if (tab.loaded) {
-          setBadgeAndPopup(tabId, request);
+          // set timeout here, always?
+          // store the timeout
+          timeout = setTimeout(() => setBadgeAndPopup(tabId, request), waitTimeout);
         }
       });
     }
