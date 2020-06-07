@@ -11,8 +11,9 @@ function set(id, start, end, noacc) {
     'background-position-x:' + (x >= 300 ? 299 : x) + 'px;';
 }
 
-getSelectedTab(function(tab) {
-  storageLocal().get('cache', function(data) {
+browser.tabs.query({active: true}).then(tabs => {
+  var tab = tabs[0];
+  browser.storage.local.get('cache').then(data => {
     var t = data.cache['tab' + tab.id];
     total = t.duration;
 

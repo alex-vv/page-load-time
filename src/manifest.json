@@ -4,7 +4,7 @@
   "manifest_version": 2,
   "description": "Displays page load time in the toolbar",
   "background": {
-    "scripts": ["background.js"],
+    "scripts": ["browser-polyfill.min.js", "background.js"],
     "persistent": false
   },
   "browser_action": {
@@ -12,7 +12,7 @@
   },
   "content_scripts": [{
     "matches": ["*://*/*"],
-    "js": ["performance.js"]
+    "js": ["browser-polyfill.min.js", "performance.js"]
   }],
   "permissions": [
     "activeTab",
