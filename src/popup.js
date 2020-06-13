@@ -28,5 +28,6 @@ browser.tabs.query({active: true}).then(tabs => {
     set('contentLoaded', t.domContentLoadedEventStart, t.domContentLoadedEventEnd, true);
     set('load', t.loadEventStart, t.loadEventEnd);
     document.getElementById("total").innerHTML = Math.round(t.duration);
+    document.getElementById("requestStart").innerHTML = new Date(t.start).toString();
   });
 });
