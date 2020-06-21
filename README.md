@@ -1,4 +1,4 @@
-This extension measures page load time and displays it in the toolbar.
+This Chrome / Firefox extension measures page load time and displays it in the toolbar.
 Navigation Timing API is used for precise measurement.
 
 # License
