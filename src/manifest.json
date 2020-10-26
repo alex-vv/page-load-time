@@ -15,7 +15,7 @@
     "js": ["browser-polyfill.min.js", "performance.js"]
   }],
   "permissions": [
-    "activeTab",
+    "tabs",
     "storage"
   ],
   "icons": {
