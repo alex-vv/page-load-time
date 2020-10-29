@@ -1,6 +1,6 @@
 {
   "name": "Page load time",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "manifest_version": 2,
   "description": "Displays page load time in the toolbar",
   "background": {
