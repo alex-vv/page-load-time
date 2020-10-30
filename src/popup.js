@@ -12,7 +12,7 @@ function set(id, start, end, noacc) {
 }
 
 browser.tabs.query({active: true}).then(tabs => {
-  var tab = tabs[0];
+  var tab = tabs[tabs.length - 1];
   browser.storage.local.get('cache').then(data => {
     var t = data.cache['tab' + tab.id];
     total = t.duration;
