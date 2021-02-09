@@ -33,7 +33,9 @@
       });
 
       // we have only 4 chars in our disposal including decimal point
-      var time = (timing.duration / 1000).toFixed(2);
+      var duration = timing.duration / 1000;
+      var precision = (duration >= 100) ? 0 : (duration >= 10 ? 1 : 2);
+      var time = duration.toFixed(precision).substring(0, 4);
       var promise = browser.runtime.sendMessage({time: time, timing: timing});
       promise.catch((reason) => console.log(reason));
     } else {
