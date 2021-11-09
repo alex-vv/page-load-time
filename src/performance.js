@@ -32,10 +32,14 @@
         timing[i] +=adjustment;
       });
 
-      // we have only 4 chars in our disposal including decimal point
+      // we have only 4 chars in our disposal including decimal point (3 in Firefox 92+)
+      var isFF = navigator.userAgent.indexOf("Firefox") > -1;
       var duration = timing.duration / 1000;
       var precision = (duration >= 100) ? 0 : (duration >= 10 ? 1 : 2);
-      var time = duration.toFixed(precision).substring(0, 4);
+      if (isFF) {
+        precision = Math.max(0, precision - 1);
+      }
+      var time = duration.toFixed(precision).substring(0, isFF ? 3 : 4);
       var promise = browser.runtime.sendMessage({time: time, timing: timing});
       promise.catch((reason) => console.log(reason));
     } else {
