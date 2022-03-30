@@ -7,7 +7,6 @@
     "service_worker": "background.js"
   },
   "action": {
-    "default_title": "BrowserDash",
     "default_icon": {
       "16": "stopwatch16.png",
       "48": "stopwatch48.png",
