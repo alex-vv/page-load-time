@@ -1,18 +1,22 @@
 {
   "name": "Page load time",
   "version": "3.2.2",
-  "manifest_version": 2,
+  "manifest_version": 3,
   "description": "Displays page load time in the toolbar",
   "background": {
-    "scripts": ["browser-polyfill.min.js", "background.js"],
-    "persistent": false
+    "service_worker": "background.js"
   },
-  "browser_action": {
-    "default_icon": "stopwatch22.png"
+  "action": {
+    "default_title": "BrowserDash",
+    "default_icon": {
+      "16": "stopwatch16.png",
+      "48": "stopwatch48.png",
+      "128": "stopwatch128.png"
+    }
   },
   "content_scripts": [{
-    "matches": ["*://*/*"],
-    "js": ["browser-polyfill.min.js", "performance.js"]
+    "matches": ["<all_urls>"],
+    "js": ["performance.js"]
   }],
   "permissions": [
     "activeTab",

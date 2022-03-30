@@ -40,7 +40,7 @@
         precision = Math.max(0, precision - 1);
       }
       var time = duration.toFixed(precision).substring(0, isFF ? 3 : 4);
-      var promise = browser.runtime.sendMessage({time: time, timing: timing});
+      var promise = chrome.runtime.sendMessage({time: time, timing: timing});
       promise.catch((reason) => console.log(reason));
     } else {
       setTimeout(startCollect, 100);
