@@ -11,9 +11,9 @@ function set(id, start, end, noacc) {
     'background-position-x:' + (x >= 300 ? 299 : x) + 'px;';
 }
 
-browser.tabs.query({active: true, currentWindow: true}).then(tabs => {
+chrome.tabs.query({active: true, currentWindow: true}).then(tabs => {
   var tab = tabs[0];
-  browser.storage.local.get('cache').then(data => {
+  chrome.storage.local.get('cache').then(data => {
     var t = data.cache['tab' + tab.id];
     total = t.duration;
 
