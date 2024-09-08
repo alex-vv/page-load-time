@@ -21,5 +21,10 @@
     "16": "stopwatch16.png",
     "48": "stopwatch48.png",
     "128": "stopwatch128.png"
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "{da981873-0eb3-4e62-9dcf-fcb6c349a676}"
+    }
   }
 }
