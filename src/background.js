@@ -1,4 +1,4 @@
-importScripts('browser-polyfill.min.js');
+try { importScripts('browser-polyfill.min.js'); } catch (e) {}
 
 // Setting a toolbar badge text
 browser.runtime.onMessage.addListener((request, sender) => {
