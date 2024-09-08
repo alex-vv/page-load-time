@@ -1,3 +1,5 @@
+try { importScripts('browser-polyfill.min.js'); } catch (e) {}
+
 // Setting a toolbar badge text
 browser.runtime.onMessage.addListener((request, sender) => {
   // This cache stores page load time for each tab, so they don't interfere
@@ -5,8 +7,8 @@ browser.runtime.onMessage.addListener((request, sender) => {
     if (!data.cache) data.cache = {};
     data.cache['tab' + sender.tab.id] = request.timing;
     browser.storage.local.set(data).then(() => {
-      browser.browserAction.setBadgeText({text: request.time, tabId: sender.tab.id});
-      browser.browserAction.setPopup({tabId: sender.tab.id, popup: "popup.html"})
+      browser.action.setBadgeText({text: request.time, tabId: sender.tab.id});
+      browser.action.setPopup({tabId: sender.tab.id, popup: "popup.html"})
     });
   });
 

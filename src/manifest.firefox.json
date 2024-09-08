@@ -1,0 +1,25 @@
+{
+  "name": "Page load time",
+  "version": "4.0",
+  "manifest_version": 3,
+  "description": "Displays page load time in the toolbar",
+  "background": {
+    "scripts": ["browser-polyfill.min.js", "background.js"]
+  },
+  "action": {
+    "default_icon": "stopwatch22.png"
+  },
+  "content_scripts": [{
+    "matches": ["*://*/*"],
+    "js": ["browser-polyfill.min.js", "performance.js"]
+  }],
+  "permissions": [
+    "activeTab",
+    "storage"
+  ],
+  "icons": {
+    "16": "stopwatch16.png",
+    "48": "stopwatch48.png",
+    "128": "stopwatch128.png"
+  }
+}
